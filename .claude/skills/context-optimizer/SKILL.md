@@ -114,8 +114,8 @@ Relevant files: [list]
 
 ### Current Context
 - Files loaded: 25
-- Estimated tokens: ~45,000
-- Utilization: 75%
+- Estimated tokens: ~35,000
+- Utilization: 70%
 
 ### Recommended Optimization
 
@@ -176,7 +176,7 @@ Priority 3 (On-Demand):
 
 | Session Type | Token Budget | Loading Strategy |
 |--------------|--------------|------------------|
-| Quick check | ~2K | CONTEXT.md only |
+| Quick check | ~2K | CONTEXT.md + PROGRESS.md |
 | Standard dev | ~10K | CONTEXT + PROGRESS + active files |
 | Deep dive | ~30K | All docs + relevant source |
 | Full context | ~50K+ | Complete project load |
@@ -282,15 +282,18 @@ Turn-by-turn progressive loading to minimize initial token cost.
 ### Loading Sequence
 
 ```
-Turn 1: Ultra-lean entry (~800 tokens)
+Turn 1: Ultra-lean entry (~1.1K tokens)
   CLAUDE.md (lean, ~300 tokens)
-  + agents/MANIFEST.md (~500 tokens)
+  + .claude/agents/MANIFEST.md (~500 tokens)
+  + docs/CONTEXT.md (structured summary, ~300 tokens)
   → User intent detection ready
+  Note: auto_load_phase_docs deferred until Turn 2
 
 Turn 2: Intent-scoped expansion
   User: "Phase 2의 T2-03 작업"
   → Load: TASKS.md에서 T2-03 행만 (~50 tokens)
   → Load: T2-03 관련 소스 파일 (~2K tokens)
+  → auto_load_phase_docs activates here (SPEC + TASKS)
 
 Turn 3+: On-demand expansion
   "SPEC 확인 필요" → +SPEC.md
@@ -374,7 +377,7 @@ Auto-save on context threshold for seamless recovery.
 Context usage > 80% of budget
     ↓
 Auto-generate checkpoint:
-  docs/sessions/checkpoint-{timestamp}.md
+  docs/sessions/checkpoint-{{TIMESTAMP}}.md
     ├── Current Task ID: T2-03
     ├── Modified files: [list]
     ├── Decisions made: [key decisions]
@@ -390,7 +393,7 @@ After /clear:
 ```markdown
 # Session Checkpoint
 Date: {{TIMESTAMP}}
-Phase: {{PHASE}} | Task: {{TASK_ID}} | Progress: {{PROGRESS}}%
+Phase: {{CURRENT_PHASE}} | Task: {{TASK_ID}} | Progress: {{PHASE_PROGRESS}}%
 
 ## State
 - Working on: {{TASK_DESCRIPTION}}
@@ -404,7 +407,7 @@ Phase: {{PHASE}} | Task: {{TASK_ID}} | Progress: {{PROGRESS}}%
 {{TODO_ITEMS}}
 
 ## Resume Command
-Read this file + docs/phases/phase-{{N}}/TASKS.md
+Read this file + docs/phases/phase-{{CURRENT_PHASE}}/TASKS.md
 ```
 
 ## CLAUDE.md Lean Template
