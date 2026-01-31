@@ -1,19 +1,17 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Ultra-CC--Init-Token_Optimized-FF6B35?style=for-the-badge&logo=anthropic&logoColor=white" alt="Ultra CC-Init"/>
+  <img src="https://img.shields.io/badge/⚡_Ultra-CC--Init-FF6B35?style=for-the-badge&logo=anthropic&logoColor=white" alt="Ultra CC-Init"/>
 </p>
 
 <h1 align="center">ultra-cc-init</h1>
 
 <p align="center">
-  <strong>Token-Optimized Claude Code Framework</strong><br/>
-  <sub>cc-initializer + Incremental Context Loading + Agent MANIFEST + Lean Templates</sub>
+  <strong>97% fewer tokens. Same 25 agents. Zero compromise.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/tygwan/ultra-cc-init/releases"><img src="https://img.shields.io/badge/version-5.0.0-FF6B35?style=flat-square" alt="Version"/></a>
+  <a href="https://github.com/tygwan/ultra-cc-init/releases"><img src="https://img.shields.io/badge/version-5.1.0-FF6B35?style=flat-square" alt="Version"/></a>
   <a href="https://github.com/tygwan/cc-initializer"><img src="https://img.shields.io/badge/base-cc--initializer_4.5-5A67D8?style=flat-square" alt="Base"/></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="License"/></a>
-  <a href="https://github.com/tygwan/ultra-cc-init/stargazers"><img src="https://img.shields.io/github/stars/tygwan/ultra-cc-init?style=flat-square" alt="Stars"/></a>
 </p>
 
 <p align="center">
@@ -21,108 +19,92 @@
   <img src="https://img.shields.io/badge/Skills-25-blue?style=flat-square" alt="Skills"/>
   <img src="https://img.shields.io/badge/Commands-6-blue?style=flat-square" alt="Commands"/>
   <img src="https://img.shields.io/badge/Hooks-6-blue?style=flat-square" alt="Hooks"/>
-  <img src="https://img.shields.io/badge/Token_Savings-82%25-success?style=flat-square" alt="Token Savings"/>
+  <img src="https://img.shields.io/badge/Lines_Saved-5,400+-success?style=flat-square" alt="Lines Saved"/>
 </p>
 
 ---
 
-## What is Ultra?
-
-**ultra-cc-init** is the token-optimized evolution of [cc-initializer](https://github.com/tygwan/cc-initializer). Same 25 agents, 25 skills, 6 commands, 6 hooks -- but with an intelligent context loading system that cuts per-session token consumption by up to 82%.
+## Before & After
 
 ```
-cc-initializer (v4.5)           ultra-cc-init (v5.0)
-─────────────────────           ─────────────────────
-Session start: ~38K tokens      Session start: ~1.1K tokens
-CLAUDE.md: ~1,700 tokens/turn   CLAUDE.md: ~300 tokens/turn
-Agent routing: load all 25      Agent routing: MANIFEST index
-Context: load everything        Context: incremental, on-demand
+                cc-initializer              ultra-cc-init
+                ──────────────              ──────────────
+Session init    ~38,000 tokens    ──97%──▶  ~1,100 tokens
+CLAUDE.md       ~1,700/turn       ──82%──▶  ~300/turn
+Agent routing   load all 25       ──97%──▶  MANIFEST → 1
+File headers    ~3,700 lines      ──moved─▶ on-demand detail
+Prose content   ~1,700 lines      ──73%──▶  tables only
 ```
 
 ---
 
-## Token Optimization Architecture
-
-```
-                        ┌──────────────────────────────┐
-                        │        ultra-cc-init          │
-                        │                               │
-                        │   Turn 1: ~1.1K tokens        │
-                        │   ┌─────────────────────┐     │
-                        │   │ CLAUDE.lean.md ~300  │     │
-                        │   │ MANIFEST.md    ~500  │     │
-                        │   │ CONTEXT.md     ~300  │     │
-                        │   └────────┬────────────┘     │
-                        │            │                   │
-                        │            ▼                   │
-                        │   Turn 2: Intent Detection     │
-                        │   ┌─────────────────────┐     │
-                        │   │ "Phase 2 T2-03 작업"  │     │
-                        │   │  → +TASKS row  ~50   │     │
-                        │   │  → +source    ~2K    │     │
-                        │   │  → +SPEC/TASKS ~2K   │     │
-                        │   └────────┬────────────┘     │
-                        │            │                   │
-                        │            ▼                   │
-                        │   Turn 3+: On-Demand           │
-                        │   ┌─────────────────────┐     │
-                        │   │ Only what you need   │     │
-                        │   │ SPEC? → +SPEC.md     │     │
-                        │   │ PRD?  → +PRD section │     │
-                        │   └─────────────────────┘     │
-                        └──────────────────────────────┘
-```
-
-### Three Pillars
+## Five Pillars
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="20%" align="center">
 
-**Agent MANIFEST**
+**1. MANIFEST**
 
 ```
-Before: ~38,000 tokens
- Load all 25 agent files
-
-After:  ~500 tokens
- 1 routing table
- + load matched agent
+38K → 500
+tokens
 ```
 
-`MANIFEST.md` maps keywords to agents. Only the matched agent file is loaded on demand.
+1 routing table
+for 25 agents
 
 </td>
-<td width="33%" valign="top">
+<td width="20%" align="center">
 
-**Lean CLAUDE.md**
+**2. Lean CLAUDE**
 
 ```
-Before: ~1,700 tokens/turn
- 200+ lines loaded every turn
-
-After:  ~300 tokens/turn
- 25-35 lines, structured
- 82% savings per turn
+1,700 → 300
+per turn
 ```
 
-Template with 8 variables auto-filled from project docs.
+8-variable
+template
 
 </td>
-<td width="33%" valign="top">
+<td width="20%" align="center">
 
-**Incremental Loading**
+**3. Incremental**
 
 ```
-Before: ~50K+ upfront
- Everything at session start
-
-After:  ~1.1K initial
- Expand only on reference
- Budget-aware loading
+50K+ → 1.1K
+initial load
 ```
 
-4-tier budget: Quick 2K, Standard 10K, Deep 30K, Full 50K.
+4-tier budget
+system
+
+</td>
+<td width="20%" align="center">
+
+**4. 2-Tier Docs**
+
+```
+3,700 lines
+→ on-demand
+```
+
+Header+Detail
+split pattern
+
+</td>
+<td width="20%" align="center">
+
+**5. Structured**
+
+```
+1,700 lines
+deleted (73%)
+```
+
+Prose → tables
+everywhere
 
 </td>
 </tr>
@@ -130,22 +112,101 @@ After:  ~1.1K initial
 
 ---
 
-## Quick Start
+## How It Works
 
-```bash
-git clone https://github.com/tygwan/ultra-cc-init.git ~/dev/ultra-cc-init
-cd your-project && claude
 ```
-
-```bash
-/init --full          # New project: Discovery -> Docs -> Phase structure
-/init --sync          # Sync framework to existing project
-/init --update        # Update ultra-cc-init to latest
+Turn 1 (~1.1K tokens)
+├── CLAUDE.lean.md ........... ~300    Project context snapshot
+├── agents/MANIFEST.md ....... ~500    25-agent routing index
+└── docs/CONTEXT.md .......... ~300    Architecture + current state
+    │
+    ▼  User: "Phase 2의 T2-03 작업해줘"
+Turn 2 (+2-5K tokens)
+├── MANIFEST → phase-tracker matched
+├── phase-tracker.md ......... ~100    Header only (2-Tier)
+├── TASKS.md row T2-03 ....... ~50     Single task row
+└── source files ............. ~2K     Related code
+    │
+    ▼  "SPEC 확인해볼게"
+Turn 3+ (on-demand)
+└── phase-2/SPEC.md .......... +2K     Loaded only when referenced
 ```
 
 ---
 
-## Component Overview
+## 2-Tier Document Architecture
+
+Every large file is split into a compact **Header** (always loaded, ~50 lines) and a **Detail** file (loaded on-demand).
+
+```
+.claude/
+├── agents/
+│   ├── github-manager.md ............. Header (~50 lines)
+│   ├── dev-docs-writer.md ............ Header
+│   ├── project-discovery.md .......... Header
+│   └── details/
+│       ├── github-manager-detail.md .. Full reference
+│       ├── dev-docs-writer-detail.md . Full reference
+│       └── project-discovery-detail.md Full reference
+│
+└── skills/
+    ├── init/SKILL.md ................. Header (~40 lines)
+    │   └── references/DETAIL.md ...... Full reference
+    ├── sprint/SKILL.md ............... Header
+    │   └── references/DETAIL.md ...... Full reference
+    ├── quality-gate/SKILL.md ......... Header
+    ├── dev-doc-system/SKILL.md ....... Header
+    └── prompt-enhancer/SKILL.md ...... Header
+```
+
+| File | Before | Header | Detail | Savings |
+|------|:------:|:------:|:------:|:-------:|
+| init.md | 880 | 40 | ~300 | 95% header |
+| dev-doc-system | 560 | 60 | ~500 | 89% header |
+| github-manager | 488 | 50 | ~440 | 90% header |
+| quality-gate | 447 | 45 | ~400 | 90% header |
+| sprint | 428 | 50 | ~380 | 88% header |
+| prompt-enhancer | 406 | 50 | ~360 | 88% header |
+| dev-docs-writer | 402 | 58 | ~350 | 86% header |
+| project-discovery | 340 | 64 | ~280 | 81% header |
+
+---
+
+## Structured Data Format
+
+All remaining files converted from prose to tables. Zero paragraphs.
+
+| File | Before | After | Reduction |
+|------|:------:|:-----:|:---------:|
+| context-optimizer | 465 | 180 | 61% |
+| feedback-loop | 377 | 150 | 60% |
+| repair | 302 | 115 | 62% |
+| agile-sync | 301 | 95 | 68% |
+| readme-helper | 190 | 115 | 39% |
+| commit-helper | 160 | 85 | 47% |
+| phase-tracker | 161 | 85 | 47% |
+| work-unit-manager | 149 | 80 | 46% |
+| progress-tracker | 141 | 85 | 40% |
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/tygwan/ultra-cc-init.git
+cd your-project && claude
+```
+
+| Command | Action |
+|---------|--------|
+| `/init --full` | New project: Discovery → Docs → Phase structure |
+| `/init --sync` | Sync framework to existing project |
+| `/init --update` | Update ultra-cc-init + sync |
+| `/validate` | Verify configuration |
+
+---
+
+## Components
 
 <table>
 <tr>
@@ -189,83 +250,28 @@ cd your-project && claude
 
 ---
 
-## Ultra Features
+## Token Budget
 
-### 1. Agent MANIFEST Routing
+| Tier | Budget | Loads | Use Case |
+|:----:|:------:|-------|----------|
+| **Quick** | ~2K | CONTEXT + PROGRESS | Status check |
+| **Standard** | ~10K | + Phase docs + active files | Normal dev |
+| **Deep** | ~30K | + Adjacent phases + source | Architecture |
+| **Full** | ~50K+ | Complete project load | Major refactor |
 
-```
-.claude/agents/MANIFEST.md
-```
+### Context Boundary Levels
 
-Instead of loading all 25 agent files (~38K tokens), MANIFEST provides a compact lookup table:
+| Level | Scope | Tokens |
+|:-----:|-------|:------:|
+| 1 | Task-Active: task row + source + deps | ~3-6K |
+| 2 | Phase-Full: + SPEC + CHECKLIST | ~8-10K |
+| 3 | Cross-Phase: + adjacent SPECs + TECH-SPEC | ~12-15K |
 
-```
-| Agent            | Keywords (KO)              | Keywords (EN)                  | Purpose                        |
-|------------------|----------------------------|--------------------------------|--------------------------------|
-| progress-tracker | 진행상황, 진척, 완료율       | progress, status, completion   | Phase+Sprint 통합 진행률 추적  |
-| phase-tracker    | phase, 단계, 페이즈         | phase, current phase, next     | Phase별 진행 추적              |
-| commit-helper    | 커밋, 저장, 올려            | commit, save changes, staged   | Conventional Commits 작성      |
-| ...              | ...                        | ...                            | ...                            |
-```
-
-**Flow**: User intent -> keyword match in MANIFEST (~500 tokens) -> load only matched agent (~1-3K)
-
-### 2. Lean CLAUDE.md Template
+### Session Checkpoint
 
 ```
-.claude/templates/CLAUDE.lean.md
-```
-
-```markdown
-# {{PROJECT_NAME}}
-> {{PROJECT_TYPE}} | {{TECH_STACK}} | Phase {{CURRENT_PHASE}}/{{TOTAL_PHASES}}
-
-## Commands
-| Dev | Manage | Track |
-|-----|--------|-------|
-| /feature | /phase | /sprint |
-| /bugfix | /validate | /analytics |
-
-## Focus
-Phase {{CURRENT_PHASE}}: {{PHASE_NAME}} ({{PHASE_PROGRESS}}%)
-Files: {{ACTIVE_FILES}}
-```
-
-Variables auto-filled from `DISCOVERY.md` and `PROGRESS.md` during `/init`.
-
-### 3. Incremental Context Protocol
-
-| Turn | What Loads | Tokens |
-|------|-----------|--------|
-| **Turn 1** | CLAUDE.lean + MANIFEST + CONTEXT.md | ~1.1K |
-| **Turn 2** | + Task-specific row + source files | +2-5K |
-| **Turn 3+** | + Referenced docs on demand | +varies |
-
-### 4. Task-Scoped Context Boundary
-
-```
-Level 1: Task-Active (default)        ~3-6K
-  Current task + related source files
-
-Level 2: Phase-Full (on request)      ~8-10K
-  + SPEC.md + CHECKLIST.md
-
-Level 3: Cross-Phase (architecture)   ~12-15K
-  + Adjacent Phase specs + TECH-SPEC
-```
-
-### 5. Session Checkpoint Protocol
-
-Auto-saves at 80% context budget:
-
-```
-docs/sessions/checkpoint-{{TIMESTAMP}}.md
-  ├── Current Task ID
-  ├── Modified files
-  ├── Key decisions
-  └── Resume instructions
-
-After /clear: CLAUDE.lean (~300) + checkpoint (~1.6K) = ~2K instant recovery
+Context > 80% budget → auto-save checkpoint
+After /clear: CLAUDE.lean (300) + checkpoint (1.6K) = ~2K instant recovery
 ```
 
 ---
@@ -273,127 +279,54 @@ After /clear: CLAUDE.lean (~300) + checkpoint (~1.6K) = ~2K instant recovery
 ## Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                                                                              │
-│    /init ─────────────────────────────────────────────────▶ Setup           │
-│      │                                                                      │
-│      ├──▶ project-discovery ──▶ DISCOVERY.md                               │
-│      │                              │                                       │
-│      └──▶ dev-docs-writer ◀─────────┘                                      │
-│                 │                                                            │
-│                 ├──▶ PRD.md                                                 │
-│                 ├──▶ TECH-SPEC.md      ┌─────────────────┐                 │
-│                 ├──▶ PROGRESS.md  ◀────│  phase-tracker  │◀── Hooks        │
-│                 ├──▶ CONTEXT.md        └─────────────────┘                 │
-│                 └──▶ CLAUDE.lean.md (auto-filled template)                 │
-│                                                                             │
-│    /feature ────▶ branch-manager ──▶ commit-helper ──▶ pr-creator          │
-│                                                                             │
-│    /gh ─────────▶ github-manager ──▶ Issues / PRs / CI / Releases          │
-│                                                                             │
-│    /analytics ──▶ analytics-reporter ──▶ CLI Charts & Reports              │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+/init ──────▶ project-discovery ──▶ DISCOVERY.md
+                                        │
+             dev-docs-writer ◀──────────┘
+                  │
+                  ├──▶ PRD.md, TECH-SPEC.md, PROGRESS.md, CONTEXT.md
+                  └──▶ CLAUDE.lean.md (auto-filled)
+
+/feature ───▶ branch-manager ──▶ commit-helper ──▶ pr-creator
+/gh ────────▶ github-manager ──▶ Issues / PRs / CI / Releases
+/sprint ────▶ progress-tracker ◀──── phase-tracker ◀── hooks
+/analytics ─▶ analytics-reporter ──▶ CLI charts
 ```
 
 ---
 
-## Phase & Sprint
-
-```
-Phase 1 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-  └── Sprint 1.1 ████████████████████ Done
-  └── Sprint 1.2 ████████████████████ Done
-
-Phase 2 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  65%
-  └── Sprint 2.1 ████████████████████ Done
-  └── Sprint 2.2 ████████████░░░░░░░░ In Progress
-```
-
-```bash
-/phase status           # Phase progress
-/sprint start           # Start sprint
-/sprint complete        # Complete sprint + retrospective
-```
-
----
-
-## GitHub Integration
-
-```bash
-/gh status              # Dashboard: issues, PRs, mentions, CI
-/gh issue list          # Issue listing
-/gh pr create           # Create PR
-/gh ci watch            # Real-time CI monitoring
-/gh release create      # Create release
-```
-
----
-
-## Analytics
-
-```bash
-/analytics              # Full summary
-/analytics tools        # Tool usage chart
-/analytics agents       # Agent call frequency
-/analytics errors       # Error pattern analysis
-```
-
-```
-Tool Usage (Last 7 days)
-───────────────────────────────────────
-Read        ████████████████████████████ 142
-Edit        ██████████████████           89
-Bash        ███████████████              74
-Grep        █████████                    45
-Write       ███████                      35
-```
-
----
-
-## Directory Structure
+## Directory
 
 ```
 .claude/
-├── settings.json          ─── 17-section config hub (315 lines)
-├── agents/           26   ─── 25 agents + MANIFEST routing index
-├── skills/           25   ─── 18 directory-based + 7 file-based
-├── commands/          6   ─── Integrated dev workflows
-├── hooks/             6   ─── Auto-trigger shell scripts
-├── templates/             ─── CLAUDE.lean.md + phase templates
-├── scripts/               ─── analytics-visualizer.sh
-├── analytics/             ─── Usage metrics (JSONL, 30d retention)
-├── docs/              6   ─── Framework architecture docs
-└── logs/                  ─── Error & recovery logs
+├── settings.json ................. 17-section config hub
+├── agents/ ............... 25+3   25 agents + MANIFEST + 3 detail files
+│   ├── MANIFEST.md                Routing index (~500 tokens)
+│   ├── details/                   On-demand detail files
+│   └── *.md                       Compact headers
+├── skills/ ............... 25     18 directory + 7 file-based
+│   └── */references/DETAIL.md     On-demand detail files
+├── commands/ ............. 6      Integrated dev workflows
+├── hooks/ ................ 6      Auto-trigger scripts
+├── templates/                     CLAUDE.lean.md + phase templates
+├── analytics/                     Usage metrics (JSONL, 30d)
+├── docs/                          Framework architecture docs
+└── logs/                          Error & recovery logs
 ```
-
----
-
-## Token Budget Reference
-
-| Session Type | Budget | What Loads | Use Case |
-|:------------:|:------:|-----------|----------|
-| **Quick** | ~2K | CONTEXT + PROGRESS | Status check |
-| **Standard** | ~10K | + Phase docs + active files | Normal dev |
-| **Deep** | ~30K | + Adjacent phases + source | Architecture work |
-| **Full** | ~50K+ | Complete project load | Major refactor |
 
 ---
 
 ## vs cc-initializer
 
-| | cc-initializer | ultra-cc-init |
-|---|:---:|:---:|
-| **Session init** | ~38K tokens | ~1.1K tokens |
-| **CLAUDE.md** | ~1,700/turn | ~300/turn |
-| **Agent routing** | Load all | MANIFEST index |
-| **Context strategy** | Eager load | Incremental |
-| **Session recovery** | Manual | Auto-checkpoint |
-| **Context boundary** | Project-wide | Task-scoped |
-| **Agents** | 25 | 25 |
-| **Skills** | 25 | 25 |
-| **Commands** | 6 | 6 |
-| **Hooks** | 6 | 6 |
+| | cc-initializer | ultra-cc-init | Delta |
+|---|:---:|:---:|:---:|
+| **Session init** | ~38K tokens | ~1.1K tokens | **-97%** |
+| **CLAUDE.md/turn** | ~1,700 | ~300 | **-82%** |
+| **Agent routing** | Load all 25 | MANIFEST → 1 | **-97%** |
+| **File headers** | Full files | 2-Tier split | **-90% avg** |
+| **Content format** | Prose | Tables | **-73%** |
+| **Context strategy** | Eager load | Incremental | 4-tier budget |
+| **Session recovery** | Manual | Auto-checkpoint | ~2K recovery |
+| **Context boundary** | Project-wide | Task-scoped | 3-level scope |
 
 ---
 
@@ -401,22 +334,23 @@ Write       ███████                      35
 
 | Version | Changes |
 |:-------:|---------|
-| `5.0.0` | Token optimization: MANIFEST, Lean CLAUDE.md, Incremental Loading, Context Boundary, Checkpoints |
-| `4.5.0` | README Helper & Agent Writer |
-| `4.4.0` | Community Project Discovery |
-| `4.3.0` | GitHub CLI Integration |
-| `4.2.0` | Analytics Visualization |
-| `4.1.0` | Framework Update System |
-| `4.0.0` | Framework Setup & Sync |
+| **5.1.0** | 2-Tier Document split (8 files), Structured Data conversion (9 files), ~5,400 lines optimized |
+| **5.0.0** | Agent MANIFEST, Lean CLAUDE.md, Incremental Loading, Context Boundary, Checkpoints |
+| 4.5.0 | README Helper & Agent Writer |
+| 4.4.0 | Community Project Discovery |
+| 4.3.0 | GitHub CLI Integration |
+| 4.2.0 | Analytics Visualization |
+| 4.0.0 | Framework Setup & Sync |
 
 ---
 
 <p align="center">
-  <strong>Built on</strong> <a href="https://github.com/tygwan/cc-initializer">cc-initializer</a>
+  <strong>Built on</strong> <a href="https://github.com/tygwan/cc-initializer">cc-initializer</a> &bull;
+  Token-optimized with <a href="https://claude.ai">Claude</a>
 </p>
 
 <p align="center">
   <a href="https://github.com/tygwan/ultra-cc-init/issues">Issues</a> &bull;
-  <a href=".claude/docs/">Documentation</a> &bull;
+  <a href=".claude/docs/">Docs</a> &bull;
   <a href="LICENSE">MIT License</a>
 </p>
