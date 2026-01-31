@@ -120,11 +120,34 @@
   "context-optimizer": {
     "enabled": true,
     "auto_load_phase_docs": true,
+    "loading_strategy": "incremental",
+    "initial_budget": 800,
+    "claude_md_template": "lean",
+    "agent_manifest": ".claude/agents/MANIFEST.md",
+    "checkpoint": {
+      "enabled": true,
+      "threshold_percent": 80,
+      "output_dir": "docs/sessions"
+    },
     "token_budget": {
       "quick": 2000,
       "standard": 10000,
       "deep": 30000,
       "full": 50000
+    },
+    "expansion_triggers": {
+      "phase_work": "+phase_docs",
+      "architecture": "+tech_spec+adjacent_phases",
+      "review": "+prd+checklist",
+      "full_status": "+progress+all_phase_summaries"
+    },
+    "context_boundary": {
+      "default": "task-active",
+      "levels": {
+        "task-active": "current_task+related_source",
+        "phase-full": "task-active+spec+checklist",
+        "cross-phase": "phase-full+adjacent_specs+tech_spec"
+      }
     }
   },
   "documents": {
@@ -171,7 +194,8 @@
         "dev-docs-writer", "config-validator", "pr-creator", "commit-helper",
         "doc-validator", "work-unit-manager", "branch-manager", "refactor-assistant",
         "project-discovery", "analytics-reporter", "github-manager",
-        "readme-helper", "agent-writer"
+        "readme-helper", "agent-writer",
+        "MANIFEST"
       ],
       "skills": [
         "init", "validate", "sprint", "agile-sync", "brainstorming",

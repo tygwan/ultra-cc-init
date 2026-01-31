@@ -65,8 +65,10 @@ description: Initialize and analyze a new project. First engages in discovery co
 │    ├── Step 3: Structure Analysis (if existing code)                        │
 │    │     └── Detect tech stack, frameworks, patterns                        │
 │    │                                                                         │
-│    ├── Step 4: Generate CLAUDE.md                                           │
-│    │     └── Project summary, commands, key files                           │
+│    ├── Step 4: Generate CLAUDE.md (Lean Template)                           │
+│    │     ├── Use .claude/templates/CLAUDE.lean.md as base                  │
+│    │     ├── Fill {{variables}} from DISCOVERY.md                          │
+│    │     └── ~300 tokens vs ~1,700+ (82% savings per turn)                │
 │    │                                                                         │
 │    ├── Step 5: Trigger dev-docs-writer                                      │
 │    │     ├── Input: DISCOVERY.md (required!)                                │
@@ -429,6 +431,7 @@ Components to Copy:
     - branch-manager.md
     - refactor-assistant.md
     - project-discovery.md
+    - MANIFEST.md  # Agent routing index (token optimization)
 
   skills/:
     - init.md, validate/, sprint/, agile-sync/
@@ -447,7 +450,7 @@ Components to Copy:
     - auto-doc-sync.sh
 
   templates/:
-    - phase/, README.md
+    - phase/, README.md, CLAUDE.lean.md
 
 Merge Logic:
   - If target file exists: SKIP (preserve project customization)
