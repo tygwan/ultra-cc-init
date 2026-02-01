@@ -280,12 +280,15 @@ Phase 13    ████████████████████ 100%
 
 ## Projects Using cc-initializer
 
+### Community Showcase
+
 | Project | Description |
 |---------|-------------|
-| [tygwan/dxtnavis](https://github.com/tygwan/dxtnavis) | DXT Navigator - Navisworks Plugin |
+| [tygwan/dxtnavis](https://github.com/tygwan/dxtnavis) | DXT Navigator - Real-world example project |
 
-> **Add yours**: Add `uses-cc-initializer` topic to your repo or [submit PR](PROJECTS.json)
+> **Add your project**: Add `uses-cc-initializer` topic to your repo or [submit a PR](PROJECTS.json)
 
+_Last updated: 2026-02-01_
 ---
 
 ## Directory Structure
