@@ -62,7 +62,7 @@ Agents, Skills, Hooks, Commands를 유기적으로 연결하여 효율적인 개
 | Category | Count | Purpose |
 |----------|-------|---------|
 | Agents | 25 | 전문화된 작업 수행 |
-| Skills | 18 | 워크플로우 자동화 |
+| Skills | 27 | 워크플로우 자동화 (Codex 듀얼 AI 포함) |
 | Commands | 6 | 통합 개발 플로우 |
 | Hooks | 5 | 자동 트리거 작업 |
 
@@ -126,6 +126,8 @@ doc-splitter (HIGH complexity) → Phase 구조
 | `/agile-sync` | 문서 동기화 |
 | `/analytics` | 사용 통계 시각화 |
 | `/gh` | GitHub CLI 통합 (이슈, PR, CI/CD, 릴리스) |
+| `/codex` | Codex CLI 실행 (코드 분석, 리뷰) |
+| `/codex-claude-loop` | Claude+Codex 듀얼 AI 엔지니어링 루프 |
 
 ### Workflow Commands
 

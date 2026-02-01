@@ -16,7 +16,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Agents-25-blue?style=flat-square" alt="Agents"/>
-  <img src="https://img.shields.io/badge/Skills-25-blue?style=flat-square" alt="Skills"/>
+  <img src="https://img.shields.io/badge/Skills-27-blue?style=flat-square" alt="Skills"/>
   <img src="https://img.shields.io/badge/Commands-6-blue?style=flat-square" alt="Commands"/>
   <img src="https://img.shields.io/badge/Hooks-6-blue?style=flat-square" alt="Hooks"/>
   <img src="https://img.shields.io/badge/Lines_Saved-5,400+-success?style=flat-square" alt="Lines Saved"/>
@@ -230,7 +230,7 @@ cd your-project && claude
 </td>
 <td width="50%" valign="top">
 
-### Skills `25`
+### Skills `27`
 
 | Category | Skills |
 |:--------:|--------|
@@ -238,6 +238,7 @@ cd your-project && claude
 | **Agile** | `/sprint` `/phase` `/agile-sync` |
 | **Git** | `/feature` `/bugfix` `/release` `/git-workflow` |
 | **GitHub** | `/gh` |
+| **Dual AI** | `/codex` `/codex-claude-loop` |
 | **Docs** | `/dev-doc-system` `/doc-confirm` `/readme-sync` |
 | **Quality** | `/quality-gate` `/feedback-loop` |
 | **Context** | `/context-optimizer` |
