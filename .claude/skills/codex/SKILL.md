@@ -7,11 +7,19 @@ description: Use when the user asks to run Codex CLI (codex exec, codex resume) 
 
 Codex CLI를 통한 코드 분석, 리팩토링, 자동 편집 실행.
 
+## Available Models
+
+| Model | Description | Use Case |
+|-------|-------------|----------|
+| `gpt-5.2-codex` | 최신 에이전틱 코딩 모델 (기본값) | 일반 코딩, 리팩토링, 분석 |
+| `gpt-5.1-codex-mini` | 경량 비용 효율 모델 | 빠른 리뷰, 간단한 작업 |
+| `gpt-5.1-codex-max` | 확장 에이전틱 코딩 모델 | 대규모 리팩토링, 장시간 작업 |
+
 ## Running a Task
 
 | Step | Action |
 |------|--------|
-| 1 | AskUserQuestion: model (`gpt-5` or `gpt-5-codex`) |
+| 1 | AskUserQuestion: model (`gpt-5.2-codex` (Recommended), `gpt-5.1-codex-mini`, `gpt-5.1-codex-max`) |
 | 2 | AskUserQuestion: reasoning effort (`low`, `medium`, `high`) |
 | 3 | Select sandbox mode (default: `read-only`) |
 | 4 | Assemble and run command |

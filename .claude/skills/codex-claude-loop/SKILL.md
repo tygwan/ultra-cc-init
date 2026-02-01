@@ -7,6 +7,14 @@ description: Orchestrates a dual-AI engineering loop where Claude Code plans and
 
 Claude가 설계/구현하고, Codex가 검증/리뷰하는 듀얼 AI 엔지니어링 루프.
 
+## Available Models
+
+| Model | Description | Use Case |
+|-------|-------------|----------|
+| `gpt-5.2-codex` | 최신 에이전틱 코딩 모델 (기본값) | Plan 검증, 코드 리뷰 |
+| `gpt-5.1-codex-mini` | 경량 비용 효율 모델 | 빠른 검증, 간단한 리뷰 |
+| `gpt-5.1-codex-max` | 확장 에이전틱 코딩 모델 | 대규모 아키텍처 리뷰 |
+
 ## Core Loop
 
 ```
@@ -35,7 +43,7 @@ Check for: Logic errors, Missing edge cases, Architecture flaws, Security concer
 | codex exec -m <model> --config model_reasoning_effort="<level>" --sandbox read-only
 ```
 
-AskUserQuestion first: model (`gpt-5` / `gpt-5-codex`) + reasoning (`low`/`medium`/`high`)
+AskUserQuestion first: model (`gpt-5.2-codex` (Recommended) / `gpt-5.1-codex-mini` / `gpt-5.1-codex-max`) + reasoning (`low`/`medium`/`high`)
 
 ### Phase 6: Resume for Iteration
 
