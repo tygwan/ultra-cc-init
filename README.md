@@ -38,6 +38,20 @@ Prose content   ~1,700 lines      ──73%──▶  tables only
 
 ---
 
+## Projects Using cc-initializer
+
+### Community Showcase
+
+| Project | Description |
+|---------|-------------|
+| [tygwan/dxtnavis](https://github.com/tygwan/dxtnavis) | DXT Navigator - Real-world example project |
+
+> **Add your project**: Add `uses-cc-initializer` topic to your repo or [submit a PR](PROJECTS.json)
+
+_Last updated: 2026-02-08_
+
+---
+
 ## Five Pillars
 
 <table>
