@@ -48,7 +48,7 @@ Prose content   ~1,700 lines      ──73%──▶  tables only
 
 > **Add your project**: Add `uses-cc-initializer` topic to your repo or [submit a PR](PROJECTS.json)
 
-_Last updated: 2026-02-22_
+_Last updated: 2026-03-01_
 ---
 
 ## Five Pillars
