@@ -59,7 +59,7 @@ Prose content   ~1,700 lines      ──73%──>  tables only
 
 > **Add your project**: Add `uses-cc-initializer` topic to your repo or [submit a PR](PROJECTS.json)
 
-_Last updated: 2026-04-05_
+_Last updated: 2026-04-12_
 ----------|-------------|
 | Core | TypeScript, Shell |
 | AI Runtime | Claude Code |
